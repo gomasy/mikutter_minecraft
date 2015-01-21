@@ -1,0 +1,16 @@
+[
+{
+  "modid": "jp.gomasy.mchook",
+  "name": "Minecraft mikutter Hook",
+  "description": "Operate a minecraft from mikutter",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Gomasy/mikutter_minecraft",
+  "updateUrl": "",
+  "authorList": ["Gomasy"],
+  "credits": "Made by Gomasy",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
