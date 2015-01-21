@@ -25,8 +25,7 @@ public class MultiHookServer extends Thread {
 
     public void socketCreate(ServerSocket server) {
         try {
-            Socket socket = server.accept();
-            new HookServer(socket).start();
+            new HookServer(server.accept()).start();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -17,17 +17,7 @@ public class HookServer extends Thread {
     @Override
     public void run() {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                try {
-                    sendText(line);
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
+            socketRead(new BufferedReader(new InputStreamReader(socket.getInputStream())));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -38,6 +28,23 @@ public class HookServer extends Thread {
     public void sendText(String text) {
         if (mc.thePlayer != null) {
             mc.thePlayer.sendChatMessage(text);
+        }
+    }
+
+    public void socketRead(BufferedReader reader) {
+        String line;
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                try {
+                    sendText(line);
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
