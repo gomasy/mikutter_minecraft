@@ -31,20 +31,16 @@ public class HookServer extends Thread {
         }
     }
 
-    public void socketRead(BufferedReader reader) {
+    public void socketRead(BufferedReader reader) throws IOException {
         String line;
 
-        try {
-            while ((line = reader.readLine()) != null) {
-                try {
-                    sendText(line);
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+        while ((line = reader.readLine()) != null) {
+            try {
+                sendText(line);
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
