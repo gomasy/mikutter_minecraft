@@ -1,0 +1,11 @@
+---
+slug: :mikutter_minecraft
+depends:
+  mikutter: 3.2.2
+  plugin:
+  - gtk
+  - gui
+version: '1.03'
+author: Gomasy
+name: mikutter_minecraft
+description: Operate a minecraft from mikutter
