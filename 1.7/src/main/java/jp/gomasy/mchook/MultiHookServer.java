@@ -14,24 +14,24 @@ public class MultiHookServer extends Thread {
         try {
             server = new ServerSocket(PORT);
             while (true) {
-                socketCreate(server);
+                socketOpen(server);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            socketClose(server);
+            if (server != null) {
+                socketClose(server);
+            }
         }
     }
 
-    public void socketCreate(ServerSocket server) throws IOException {
+    public void socketOpen(ServerSocket server) throws IOException {
         new HookServer(server.accept()).start();
     }
 
     public void socketClose(ServerSocket server) {
         try {
-            if (server != null) {
-                server.close();
-            }
+            server.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,10 @@
 package jp.gomasy.mchook;
 
-import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.net.Socket;
+import java.net.URLDecoder;
 import net.minecraft.client.Minecraft;
 
 public class HookServer extends Thread {
@@ -17,12 +18,18 @@ public class HookServer extends Thread {
     @Override
     public void run() {
         try {
-            socketRead(new BufferedReader(new InputStreamReader(socket.getInputStream())));
+            socketRead(socketOpen());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            socketClose(socket);
+            if (socket != null) {
+                socketClose();
+            }
         }
+    }
+
+    public String decode(String text) throws IOException {
+        return URLDecoder.decode(text, "utf-8");
     }
 
     public void sendText(String text) {
@@ -31,12 +38,17 @@ public class HookServer extends Thread {
         }
     }
 
+    public BufferedReader socketOpen() throws IOException {
+        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    }
+
     public void socketRead(BufferedReader reader) throws IOException {
         String line;
 
         while ((line = reader.readLine()) != null) {
+            sendText(decode(line));
+
             try {
-                sendText(line);
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -44,11 +56,9 @@ public class HookServer extends Thread {
         }
     }
 
-    public void socketClose(Socket socket) {
+    public void socketClose() {
         try {
-            if (socket != null) {
-                socket.close();
-            }
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
