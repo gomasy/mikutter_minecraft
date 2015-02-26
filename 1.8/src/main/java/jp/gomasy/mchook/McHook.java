@@ -11,8 +11,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = McHook.MODID, version = McHook.VERSION)
 public class McHook
 {
-    public static final String MODID = "jp.gomasy.mchook";
-    public static final String VERSION = "1.05";
+    public static final String MODID = "mchook";
+    public static final String VERSION = "1.06";
 
     @EventHandler
     public void init(FMLInitializationEvent event) {

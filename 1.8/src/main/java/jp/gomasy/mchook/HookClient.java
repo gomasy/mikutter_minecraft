@@ -4,6 +4,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URLEncoder;
+
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.event.ServerChatEvent;
 
 public class HookClient extends Thread {
@@ -22,7 +24,7 @@ public class HookClient extends Thread {
             socket = socketOpen();
             socketWrite(socket, encode(text));
         } catch (IOException e) {
-            e.printStackTrace();
+            FMLLog.warning("Socket open or write failed");
         } finally {
             if (socket != null) {
                 socketClose(socket);
@@ -46,7 +48,7 @@ public class HookClient extends Thread {
         try {
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            FMLLog.warning("Socket close failed");
         }
     }
 }

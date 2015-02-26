@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URLDecoder;
+
+import cpw.mods.fml.common.FMLLog;
 import net.minecraft.client.Minecraft;
 
 public class HookServer extends Thread {
@@ -20,7 +22,7 @@ public class HookServer extends Thread {
         try {
             socketRead(socketOpen());
         } catch (IOException e) {
-            e.printStackTrace();
+            FMLLog.warning("Socket open or read failed");
         } finally {
             if (socket != null) {
                 socketClose();
@@ -60,7 +62,7 @@ public class HookServer extends Thread {
         try {
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            FMLLog.warning("Socket close failed");
         }
     }
 }
