@@ -8,6 +8,8 @@ import java.net.URLEncoder;
 import cpw.mods.fml.common.FMLLog;
 import net.minecraftforge.event.ServerChatEvent;
 
+import org.apache.logging.log4j.Level;
+
 public class HookClient extends Thread {
     public static final int PORT = 29654;
     private ServerChatEvent event;
@@ -24,7 +26,7 @@ public class HookClient extends Thread {
             socket = socketOpen();
             socketWrite(socket, encode(text));
         } catch (IOException e) {
-            FMLLog.warning("Socket open or write failed");
+            FMLLog.log(Level.WARN, e, "Socket open or write failed");
         } finally {
             if (socket != null) {
                 socketClose(socket);
@@ -48,7 +50,7 @@ public class HookClient extends Thread {
         try {
             socket.close();
         } catch (IOException e) {
-            FMLLog.warning("Socket close failed");
+            FMLLog.log(Level.WARN, e, "Socket close failed");
         }
     }
 }

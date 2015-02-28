@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import cpw.mods.fml.common.FMLLog;
 
+import org.apache.logging.log4j.Level;
+
 public class MultiHookServer extends Thread {
     public static final int PORT = 29653;
 
@@ -19,7 +21,7 @@ public class MultiHookServer extends Thread {
                 socketOpen(server);
             }
         } catch (IOException e) {
-            FMLLog.warning("Socket create failed");
+            FMLLog.log(Level.WARN, e, "Socket create failed");
         } finally {
             if (server != null) {
                 socketClose(server);
@@ -35,7 +37,7 @@ public class MultiHookServer extends Thread {
         try {
             server.close();
         } catch (IOException e) {
-            FMLLog.warning("Socket close failed");
+            FMLLog.log(Level.WARN, e, "Socket close failed");
         }
     }
 }

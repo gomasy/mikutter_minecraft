@@ -9,6 +9,8 @@ import java.net.URLDecoder;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.FMLLog;
 
+import org.apache.logging.log4j.Level;
+
 public class HookServer extends Thread {
     private Socket socket;
     private Minecraft mc = Minecraft.getMinecraft();
@@ -22,7 +24,7 @@ public class HookServer extends Thread {
         try {
             socketRead(socketOpen());
         } catch (IOException e) {
-            FMLLog.warning("Socket open or read failed");
+            FMLLog.log(Level.WARN, e, "Socket open or read failed");
         } finally {
             if (socket != null) {
                 socketClose();
@@ -62,7 +64,7 @@ public class HookServer extends Thread {
         try {
             socket.close();
         } catch (IOException e) {
-            FMLLog.warning("Socket close failed");
+            FMLLog.log(Level.WARN, e, "Socket close failed");
         }
     }
 }
